@@ -12,3 +12,5 @@ sumy==0.8.1
 click==8
 seaborn==0.11.2
 pyLDAvis==3.3.1
+scipy==1.7.3
+fuzzywuzzy==0.18.0
