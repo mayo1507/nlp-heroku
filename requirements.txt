@@ -10,3 +10,4 @@ wordcloud==1.8.1
 spacy==3.2
 sumy==0.8.1
 click==8
+seaborn==0.11.2
