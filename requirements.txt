@@ -15,3 +15,4 @@ pyLDAvis==3.3.1
 scipy==1.7.3
 fuzzywuzzy==0.18.0
 textblob==0.17.1
+textstat==0.7.3
