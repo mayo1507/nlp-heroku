@@ -28,6 +28,7 @@ import base64
 import seaborn as sns
 from PIL import Image
 import cufflinks
+import en_core_web_sm
 from sklearn.feature_extraction.text import CountVectorizer
 from plotly.offline import iplot
 from textblob import TextBlob
@@ -200,7 +201,7 @@ def plot_sentiment_barchart(text, method='TextBlob'):
 
 #Entity recognition
 def plot_most_common_named_entity_barchart(text, entity="PERSON"):
-    nlp = spacy.load("en_core_web_sm")
+    nlp = en_core_web_sm.load()
 
     def _get_ner(text, ent):
         doc = nlp(text)
