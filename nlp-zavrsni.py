@@ -1,5 +1,6 @@
 #Import all the required livraries..
 
+import en_core_web_sm
 import pandas as pd
 import feedparser
 # Import packages
