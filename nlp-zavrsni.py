@@ -1,5 +1,6 @@
 #Import all the required livraries..
 
+import en_core_web_sm
 import pandas as pd
 import feedparser
 # Import packages
@@ -200,7 +201,7 @@ def plot_sentiment_barchart(text, method='TextBlob'):
 
 #Entity recognition
 def plot_most_common_named_entity_barchart(text, entity="PERSON"):
-    nlp = spacy.load("en_core_web_sm")
+    nlp = en_core_web_sm.load()
 
     def _get_ner(text, ent):
         doc = nlp(text)
