@@ -200,7 +200,7 @@ def plot_sentiment_barchart(text, method='TextBlob'):
 
 #Entity recognition
 def plot_most_common_named_entity_barchart(text, entity="PERSON"):
-    nlp = spacy.load("en_core_web_sm")
+    nlp = spacy.load("en")
 
     def _get_ner(text, ent):
         doc = nlp(text)
