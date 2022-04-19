@@ -28,7 +28,6 @@ import base64
 import seaborn as sns
 from PIL import Image
 import cufflinks
-import en_core_web_sm
 from sklearn.feature_extraction.text import CountVectorizer
 from plotly.offline import iplot
 from textblob import TextBlob
