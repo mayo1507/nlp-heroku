@@ -1,6 +1,5 @@
 #Import all the required livraries..
 
-python -m spacy download en_core_web_sm
 import pandas as pd
 import feedparser
 # Import packages
