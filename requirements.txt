@@ -7,7 +7,7 @@ matplotlib==3.5.1
 gensim==3.8.0
 cufflinks==0.17.3
 wordcloud==1.8.1
-spacy==3.1
+spacy==3.0.0
 sumy==0.8.1
 click==8
 seaborn==0.11.2
