@@ -36,6 +36,7 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from wordcloud import WordCloud
 from wordcloud import STOPWORDS
 import plotly.express as px
+mamba install 'click<8'
 import spacy
 from sklearn.decomposition import TruncatedSVD
 from sklearn.decomposition import LatentDirichletAllocation
