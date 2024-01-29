@@ -1,5 +1,16 @@
-# Test
+# Streamlit NLP news articles analysis software
 
-Test
+The developed software is based on the Python programming language.
+The software functions by using imported libraries enabling the use of natural 
+language processing techniques (NLP) and RSS feed that is downloaded from the news portal websites. 
+The software is used for application of language analysis and recognition techniques to  a textual news feed.
 
-## Subheader
+## Instructions
+
+To start the Streamlit application locally:
+    1. Run anaconda
+    2. Open terminal (CMD.exe Prompt)
+    3. Set directory to where the program is located using "cd" command
+    4. Run the application with "streamlit run nlp-zavrsni.py" command
+
+
