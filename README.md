@@ -12,6 +12,6 @@ To start the Streamlit application locally:
     2. Open terminal (CMD.exe Prompt)
     3. Set directory to where the program is located using "cd" command
     4. Run the application with "streamlit run nlp-zavrsni.py" command
-    5. To set up images used in application change the directory of Image.open lines within code
+    5. To set up intro images used in application, change the directory of Image.open lines within code
 
 
