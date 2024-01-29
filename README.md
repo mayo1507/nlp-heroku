@@ -8,7 +8,7 @@ The software is used for application of language analysis and recognition techni
 ## Instructions
 
 To start the Streamlit application locally:
-    1. \n Run anaconda
+    1. Run anaconda
     2. Open terminal (CMD.exe Prompt)
     3. Set directory to where the program is located using "cd" command
     4. Run the application with "streamlit run nlp-zavrsni.py" command
