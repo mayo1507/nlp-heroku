@@ -2,59 +2,19 @@
 
 import pandas as pd
 import feedparser
-# Import packages
-import matplotlib.pyplot as plt
-#get_ipython().run_line_magic('matplotlib', 'inline')
-import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-import warnings
-import re
 import nltk
-from nltk.corpus import stopwords
-from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
-import gensim
-from nltk.stem import WordNetLemmatizer,PorterStemmer
-from nltk.tokenize import word_tokenize
-import pyLDAvis.gensim_models
 from collections import Counter
-import feedparser
-from nltk.tokenize import RegexpTokenizer
-from nltk.corpus import stopwords
-from sklearn.feature_extraction.text import TfidfVectorizer
 import streamlit as st
-import base64
-import seaborn as sns
 from PIL import Image
 import cufflinks
 from sklearn.feature_extraction.text import CountVectorizer
-from plotly.offline import iplot
 from textblob import TextBlob
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from wordcloud import WordCloud
 from wordcloud import STOPWORDS
 import plotly.express as px
-import spacy
-from sklearn.decomposition import TruncatedSVD
-from sklearn.decomposition import LatentDirichletAllocation
-from sklearn.manifold import TSNE
-#from gensim.summarization import summarize
-from sumy.utils import get_stop_words
-from sumy.nlp.stemmers import Stemmer
-from sumy.parsers.plaintext import PlaintextParser
-from sumy.nlp.tokenizers import Tokenizer as sumytoken
-from sumy.summarizers.lex_rank import LexRankSummarizer
-from sumy.utils import get_stop_words
-from sumy.nlp.stemmers import Stemmer
-from sumy.parsers.plaintext import PlaintextParser
-from sumy.nlp.tokenizers import Tokenizer as sumytoken
-from sumy.summarizers.lsa import LsaSummarizer as Summarizer
-from sumy.utils import get_stop_words
-from sumy.nlp.stemmers import Stemmer
-from sumy.parsers.plaintext import PlaintextParser
-from sumy.nlp.tokenizers import Tokenizer as sumytoken
-from sumy.summarizers.luhn import LuhnSummarizer
 
 nltk.download('punkt')
 cufflinks.go_offline()
@@ -175,7 +135,6 @@ def sentiment_textblob(text):
     else:
         return 'pos'
 
-#@st.cache(suppress_st_warning=True)
 def plot_sentiment_barchart(text, method='TextBlob'):
     if method == 'TextBlob':
         sentiment = text.map(lambda x: sentiment_textblob(x))
@@ -203,7 +162,6 @@ def plot_parts_of_speach_barchart(text):
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.pyplot()
 
-#st.set_page_config(layout="wide")
 st.title('News Articles Analysis -NLP App')
 st.header("""
 This app displays the news articles appeared in the top News Publications!
@@ -218,10 +176,7 @@ s_nlp = st.sidebar.selectbox('Functions', lnlp)
 
 def load_data(news,nlp):
    if news =="NY Times":
-       #st.write(news)
-       #st.write(nlp)
        if nlp =="Intro":
-           #st.write("this is intro")
            image1 = Image.open(r'C:\Users\PC\Desktop\git\nlp-zavrsni\images\New-York-Times-logo-500x281.jpg')
            st.write( " ")
            st.image(image1, width=300)
@@ -244,23 +199,16 @@ def load_data(news,nlp):
        url_link = "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"
        RSSFeed(url_link)
        df = ndf
-       #st.header('Display the dataframe')
-       #st.dataframe(df)
        pd.set_option('display.max_rows', df.shape[0] + 1)
        df.reset_index(inplace=True, drop=True)
        for ind in df.index:
-           # print(df['title'][ind], df['link'][ind], df['content'][ind])
            url = df['link'][ind]
-           #print(url)
            text = full_text(url)
            df['content'][ind] = text
-       #st.write(df['title'])
-       # Build the corpus.
+       # Build the corpus.    
        corpus = []
        for ind in df.index:
-           # corpus = df['content'][ind]
            corpus.append(df['title'][ind])
-       #print(corpus)
        df = df.dropna()
        X_train1 = df['title']
        if nlp == "Snapshot":
@@ -352,8 +300,6 @@ def load_data(news,nlp):
            st.write(' ')
 
            common_words = get_top_n_words(df_n['title'], 10)
-           #for word, freq in common_words:
-           #    (word, freq)
            df2 = pd.DataFrame(common_words, columns=['Words', 'Count'])
            st.table(df2)
            fig = px.scatter(
@@ -366,7 +312,6 @@ def load_data(news,nlp):
                yaxis_title="Count",
            )
 
-           # st.write(fig)
            st.plotly_chart(fig)
 
        if nlp == "Bigrams":
@@ -398,9 +343,7 @@ def load_data(news,nlp):
                yaxis_title="Count",
            )
 
-           # st.write(fig)
            st.plotly_chart(fig)
-       # wordcloud.to_image()
 
        if nlp == 'Trigrams':
            st.markdown("""
@@ -431,7 +374,6 @@ def load_data(news,nlp):
                yaxis_title="Count",
            )
 
-           # st.write(fig)
            st.plotly_chart(fig)
 
        if nlp =="Sentiment Analysis TextBlob":
@@ -442,7 +384,6 @@ def load_data(news,nlp):
                                  }
                                  </style>
                                  """, unsafe_allow_html=True)
-           t_word = "The sentiment property returns a namedtuple of the form Sentiment(polarity, subjectivity). The polarity score is a float within the range [-1.0, 1.0]. The subjectivity is a float within the range [0.0, 1.0] where 0.0 is very objective and 1.0 is very subjective."
            st.write(' ')
            st.markdown('<p class="big1-font">TextBlob Sentiment Analyzer</p>',unsafe_allow_html=True)
            st.write(' ')
@@ -471,10 +412,7 @@ def load_data(news,nlp):
            plot_parts_of_speach_barchart(df['content'])
 
    if news =="BuzzFeed":
-       #st.write(news)
-       #st.write(nlp)
        if nlp =="Intro":
-           #st.write("this is intro")
            image1 = Image.open(r'C:\Users\PC\Desktop\git\nlp-zavrsni\images\5113082_BuzzFeed_Logo.jpg')
            st.write( " ")
            st.image(image1, width=300)
@@ -500,23 +438,16 @@ def load_data(news,nlp):
        url_link = "https://www.buzzfeed.com/politics.xml"
        RSSFeed(url_link)
        df = ndf
-       #st.header('Display the dataframe')
-       #st.dataframe(df)
        pd.set_option('display.max_rows', df.shape[0] + 1)
        df.reset_index(inplace=True, drop=True)
        for ind in df.index:
-           # print(df['title'][ind], df['link'][ind], df['content'][ind])
            url = df['link'][ind]
-           #print(url)
            text = full_text(url)
            df['content'][ind] = text
-       #st.write(df['title'])
        # Build the corpus.
        corpus = []
        for ind in df.index:
-           # corpus = df['content'][ind]
            corpus.append(df['title'][ind])
-       #print(corpus)
        df = df.dropna()
        X_train1 = df['title']
        if nlp == "Snapshot":
@@ -608,8 +539,6 @@ def load_data(news,nlp):
            st.write(' ')
 
            common_words = get_top_n_words(df_n['title'], 10)
-           #for word, freq in common_words:
-           #    (word, freq)
            df2 = pd.DataFrame(common_words, columns=['Words', 'Count'])
            st.table(df2)
            fig = px.scatter(
@@ -622,7 +551,6 @@ def load_data(news,nlp):
                yaxis_title="Count",
            )
 
-           # st.write(fig)
            st.plotly_chart(fig)
 
        if nlp == "Bigrams":
@@ -654,9 +582,7 @@ def load_data(news,nlp):
                yaxis_title="Count",
            )
 
-           # st.write(fig)
            st.plotly_chart(fig)
-       # wordcloud.to_image()
 
        if nlp == 'Trigrams':
            st.markdown("""
@@ -687,7 +613,6 @@ def load_data(news,nlp):
                yaxis_title="Count",
            )
 
-           # st.write(fig)
            st.plotly_chart(fig)
 
        if nlp =="Sentiment Analysis TextBlob":
@@ -698,7 +623,6 @@ def load_data(news,nlp):
                                  }
                                  </style>
                                  """, unsafe_allow_html=True)
-           t_word = "The sentiment property returns a namedtuple of the form Sentiment(polarity, subjectivity). The polarity score is a float within the range [-1.0, 1.0]. The subjectivity is a float within the range [0.0, 1.0] where 0.0 is very objective and 1.0 is very subjective."
            st.write(' ')
            st.markdown('<p class="big1-font">TextBlob Sentiment Analyzer</p>',unsafe_allow_html=True)
            st.write(' ')
@@ -727,10 +651,7 @@ def load_data(news,nlp):
            plot_parts_of_speach_barchart(df['content'])
 
    if news =="Huffington Post":
-       #st.write(news)
-       #st.write(nlp)
        if nlp =="Intro":
-           #st.write("this is intro")
            image1 = Image.open(r'C:\Users\PC\Desktop\git\nlp-zavrsni\images\HuffPost.svg.jpg')
            st.write( " ")
            st.image(image1, width=300)
@@ -756,23 +677,16 @@ def load_data(news,nlp):
        url_link = "http://www.huffingtonpost.com/feeds/verticals/world/index.xml"
        RSSFeed(url_link)
        df = ndf
-       #st.header('Display the dataframe')
-       #st.dataframe(df)
        pd.set_option('display.max_rows', df.shape[0] + 1)
        df.reset_index(inplace=True, drop=True)
        for ind in df.index:
-           # print(df['title'][ind], df['link'][ind], df['content'][ind])
            url = df['link'][ind]
-           #print(url)
            text = full_text(url)
            df['content'][ind] = text
-       #st.write(df['title'])
        # Build the corpus.
        corpus = []
        for ind in df.index:
-           # corpus = df['content'][ind]
            corpus.append(df['title'][ind])
-       #print(corpus)
        df = df.dropna()
        X_train1 = df['title']
        if nlp == "Snapshot":
@@ -864,8 +778,6 @@ def load_data(news,nlp):
            st.write(' ')
 
            common_words = get_top_n_words(df_n['title'], 10)
-           #for word, freq in common_words:
-           #    (word, freq)
            df2 = pd.DataFrame(common_words, columns=['Words', 'Count'])
            st.table(df2)
            fig = px.scatter(
@@ -878,7 +790,6 @@ def load_data(news,nlp):
                yaxis_title="Count",
            )
 
-           # st.write(fig)
            st.plotly_chart(fig)
 
        if nlp == "Bigrams":
@@ -910,9 +821,7 @@ def load_data(news,nlp):
                yaxis_title="Count",
            )
 
-           # st.write(fig)
            st.plotly_chart(fig)
-       # wordcloud.to_image()
 
        if nlp == 'Trigrams':
            st.markdown("""
@@ -943,7 +852,6 @@ def load_data(news,nlp):
                yaxis_title="Count",
            )
 
-           # st.write(fig)
            st.plotly_chart(fig)
 
        if nlp =="Sentiment Analysis TextBlob":
@@ -954,7 +862,6 @@ def load_data(news,nlp):
                                  }
                                  </style>
                                  """, unsafe_allow_html=True)
-           t_word = "The sentiment property returns a namedtuple of the form Sentiment(polarity, subjectivity). The polarity score is a float within the range [-1.0, 1.0]. The subjectivity is a float within the range [0.0, 1.0] where 0.0 is very objective and 1.0 is very subjective."
            st.write(' ')
            st.markdown('<p class="big1-font">TextBlob Sentiment Analyzer</p>',unsafe_allow_html=True)
            st.write(' ')
@@ -983,10 +890,7 @@ def load_data(news,nlp):
            plot_parts_of_speach_barchart(df['content'])
 
    if news =="The Wall Street Journal":
-       #st.write(news)
-       #st.write(nlp)
        if nlp =="Intro":
-           #st.write("this is intro")
            image1 = Image.open(r'C:\Users\PC\Desktop\git\nlp-zavrsni\images\Wall-Street-Journal-logo.jpg')
            st.write( " ")
            st.image(image1, width=300)
@@ -1011,23 +915,16 @@ def load_data(news,nlp):
        url_link = "https://feeds.a.dj.com/rss/RSSWorldNews.xml"
        RSSFeed(url_link)
        df = ndf
-       #st.header('Display the dataframe')
-       #st.dataframe(df)
        pd.set_option('display.max_rows', df.shape[0] + 1)
        df.reset_index(inplace=True, drop=True)
        for ind in df.index:
-           # print(df['title'][ind], df['link'][ind], df['content'][ind])
            url = df['link'][ind]
-           #print(url)
            text = full_text(url)
            df['content'][ind] = text
-       #st.write(df['title'])
        # Build the corpus.
        corpus = []
        for ind in df.index:
-           # corpus = df['content'][ind]
            corpus.append(df['title'][ind])
-       #print(corpus)
        df = df.dropna()
        X_train1 = df['title']
        if nlp == "Snapshot":
@@ -1119,8 +1016,6 @@ def load_data(news,nlp):
            st.write(' ')
 
            common_words = get_top_n_words(df_n['title'], 10)
-           #for word, freq in common_words:
-           #    (word, freq)
            df2 = pd.DataFrame(common_words, columns=['Words', 'Count'])
            st.table(df2)
            fig = px.scatter(
@@ -1133,7 +1028,6 @@ def load_data(news,nlp):
                yaxis_title="Count",
            )
 
-           # st.write(fig)
            st.plotly_chart(fig)
 
        if nlp == "Bigrams":
@@ -1165,9 +1059,7 @@ def load_data(news,nlp):
                yaxis_title="Count",
            )
 
-           # st.write(fig)
            st.plotly_chart(fig)
-       # wordcloud.to_image()
 
        if nlp == 'Trigrams':
            st.markdown("""
@@ -1198,7 +1090,6 @@ def load_data(news,nlp):
                yaxis_title="Count",
            )
 
-           # st.write(fig)
            st.plotly_chart(fig)
 
        if nlp =="Sentiment Analysis TextBlob":
@@ -1209,7 +1100,6 @@ def load_data(news,nlp):
                                  }
                                  </style>
                                  """, unsafe_allow_html=True)
-           t_word = "The sentiment property returns a namedtuple of the form Sentiment(polarity, subjectivity). The polarity score is a float within the range [-1.0, 1.0]. The subjectivity is a float within the range [0.0, 1.0] where 0.0 is very objective and 1.0 is very subjective."
            st.write(' ')
            st.markdown('<p class="big1-font">TextBlob Sentiment Analyzer</p>',unsafe_allow_html=True)
            st.write(' ')
